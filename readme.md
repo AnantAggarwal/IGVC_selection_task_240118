@@ -1,0 +1,1 @@
+There are 2 files in software software_p1. One finds the min moves, other shows the path.
