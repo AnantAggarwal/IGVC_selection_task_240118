@@ -89,21 +89,21 @@ int getOctant(pair<int, int> pos){
 		if(pos.second<3)
 			return 0;
 		else if(pos.second>=3 && pos.second<lane_map[0].size()-3)
-			return 7;
+			return 1;
 		else 
-			return 6;
+			return 2;
 	}else if(pos.first>=3 && pos.first<lane_map.size()-3){
 		if(pos.second>=lane_map[0].size()-3)
-			return 5;
+			return 3;
 		else 
-			return 1;
+			return 7;
 	}else{
 		if(pos.second>=lane_map[0].size()-3)
 			return 4;
 		else if(pos.second<3)
-			return 2;
+			return 6;
 		else
-			return 3;
+			return 5;
 	}
 }
 
@@ -131,20 +131,20 @@ tuple<pair<int,int>, int, int, int> generatePath() {
     //Get the starting position of the bot
     pair<int, int> start_pos = getStartPos();
     //No of moves to reach the initial mode is 0
-    q.push(make_tuple(0, start_pos, 0, 0, 0));
-    q.push(make_tuple(0, start_pos, 0, 1, 0));
-    q.push(make_tuple(0, start_pos, 0, 2, 0));
-    q.push(make_tuple(0, start_pos, 0, 3, 0));
+    q.push(make_tuple(0, start_pos, 1, 0, 0));
+    q.push(make_tuple(0, start_pos, 1, 1, 0));
+    q.push(make_tuple(0, start_pos, 1, 2, 0));
+    q.push(make_tuple(0, start_pos, 1, 3, 0));
     
     
     //The map stores whether we have added a node in queue or not
     //by storing the parent from which we have come on this node
     //This will also help us in back tracing later on
     auto init_parent = make_tuple(make_pair(-1,-1),0,0,0);
-    visited[make_tuple(start_pos, 0, 0, 0)] = init_parent;
-    visited[make_tuple(start_pos, 0, 1, 0)] = init_parent;
-    visited[make_tuple(start_pos, 0, 2, 0)] = init_parent;
-    visited[make_tuple(start_pos, 0, 3, 0)] = init_parent;
+    visited[make_tuple(start_pos, 1, 0, 0)] = init_parent;
+    visited[make_tuple(start_pos, 1, 1, 0)] = init_parent;
+    visited[make_tuple(start_pos, 1, 2, 0)] = init_parent;
+    visited[make_tuple(start_pos, 1, 3, 0)] = init_parent;
 
     while (!q.empty()) {
         //Get the top node in the queue and split it
@@ -158,6 +158,10 @@ tuple<pair<int,int>, int, int, int> generatePath() {
         //because we have divided the map into 8 quadrants and change in quadrant
         //clockwise results in +1. check cScoreDiff()
         int c_score = get<4>(next_node);
+
+        if(moves<3){
+            cout<<pos.first<<','<<pos.second<<' '<<moves<<'\n';
+        }
 
         auto parent = make_tuple(pos,speed,dir,c_score);
 
@@ -223,6 +227,7 @@ int main(){
     //backtracing the path
     int count = 0;
     while(get<0>(end)!=start_pos){
+        cout<<get<0>(end).first<<','<<get<0>(end).second<<' '<<get<1>(end)<<'\n';
         ++count;
         auto pos = get<0>(end);
         lane_map[pos.first][pos.second]=3;
