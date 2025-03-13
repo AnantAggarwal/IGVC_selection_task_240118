@@ -1,0 +1,1 @@
+## The first software problem took very long(almost 2 days). So I couldn't get time to attempt electronics and mech questions
