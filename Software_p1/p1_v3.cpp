@@ -167,8 +167,8 @@ tuple<pair<int,int>, int, int, int> generatePath() {
             for (int i : {-1, 0, 1}) {
                 //Add speed * direction vector to find new pos. Also considering row change using i
                 //dir+1 because it is always perp to current direction
-                int new_x = pos.first + s * dir_vecs[dir].first + i * dir_vecs[(dir + 1) % 4].first;
-                int new_y = pos.second + s * dir_vecs[dir].second + i * dir_vecs[(dir + 1) % 4].second;
+                int new_x = pos.first + speed * dir_vecs[dir].first + i * dir_vecs[(dir + 1) % 4].first;
+                int new_y = pos.second + speed * dir_vecs[dir].second + i * dir_vecs[(dir + 1) % 4].second;
                 pair<int, int> new_pos = {new_x, new_y};
 
                 //check valid move defn above
@@ -218,11 +218,14 @@ int main(){
     auto start_pos = getStartPos();
     auto end = generatePath();
     //backtracing the path
+    int count = 0;
     while(get<0>(end)!=start_pos){
+        ++count;
         auto pos = get<0>(end);
         lane_map[pos.first][pos.second]=3;
         end = visited[end];
     }
+    cout<<count<<'\n';
     for(int i=0; i<lane_map.size(); ++i){
         for(int j=0; j<lane_map[0].size();+ ++j){
             cout<<lane_map[i][j]<<' ';
