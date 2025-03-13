@@ -159,10 +159,6 @@ tuple<pair<int,int>, int, int, int> generatePath() {
         //clockwise results in +1. check cScoreDiff()
         int c_score = get<4>(next_node);
 
-        if(moves<3){
-            cout<<pos.first<<','<<pos.second<<' '<<moves<<'\n';
-        }
-
         auto parent = make_tuple(pos,speed,dir,c_score);
 
         //We can keep the speed constant or change it by one
@@ -227,7 +223,6 @@ int main(){
     //backtracing the path
     int count = 0;
     while(get<0>(end)!=start_pos){
-        cout<<get<0>(end).first<<','<<get<0>(end).second<<' '<<get<1>(end)<<'\n';
         ++count;
         auto pos = get<0>(end);
         lane_map[pos.first][pos.second]=3;
