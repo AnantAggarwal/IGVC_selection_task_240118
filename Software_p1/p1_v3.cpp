@@ -1,4 +1,7 @@
 //Please run this code with c++20 or later, else it will give error
+//I am assuming that speed means how many units it can move in 1 move
+//Also I am assuming it first moves to square, then changes speed, then direction
+//and then moves accordingly
 #include <bits/stdc++.h>
 using namespace std;
 //We are considering a combination of position, speed, direction and c_score as node
@@ -171,7 +174,7 @@ tuple<pair<int,int>, int, int, int> generatePath() {
                 int new_y = pos.second + speed * dir_vecs[dir].second + i * dir_vecs[(dir + 1) % 4].second;
                 pair<int, int> new_pos = {new_x, new_y};
 
-                //check valid move defn above
+                //check validMove defn above
                 //basically checks if new_pos is a valid position
                 //and there are no obstacles in between old and new position
                 if (validMove(pos, new_pos)) {
